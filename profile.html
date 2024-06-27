@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Profile</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      .profile-info {
+        margin-bottom: 20px;
+      }
+
+      .profile-info p {
+        margin: 15px 0;
+        font-size: 18px;
+      }
+
+      .profile-info strong {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Student Profile</h1>
+      <div class="profile-info" id="profile"></div>
+      <button id="logoutBtn">Logout</button>
+    </div>
+    <a href="sbhsdemo.php?logout=true">Go Home</a>
+
+    <script>
+      // Retrieve student data from local storage
+      var studentData = JSON.parse(localStorage.getItem("studentData"));
+
+      // Display student profile
+      var profileDiv = document.getElementById("profile");
+      if (studentData) {
+        profileDiv.innerHTML = `
+                <p><strong>Username:</strong> ${studentData.username}</p>
+                <p><strong>Student ID:</strong> ${studentData.studentId}</p>
+                <p><strong>Name:</strong> ${studentData.givenName} ${studentData.surname}</p>
+                <p><strong>Class:</strong> ${studentData.rollClass}</p>
+                <p><strong>Year Group:</strong> ${studentData.yearGroup}</p>
+                <p><strong>Email:</strong> ${studentData.email}</p>
+                <!-- Add more profile details as needed -->
+            `;
+      } else {
+        profileDiv.innerHTML = "<p>No student data found.</p>";
+      }
+
+      // Logout button click event handler
+      document
+        .getElementById("logoutBtn")
+        .addEventListener("click", function () {
+          // Remove student data from local storage
+          localStorage.removeItem("studentData");
+        });
+    </script>
+  </body>
+</html>
